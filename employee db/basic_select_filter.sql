@@ -75,24 +75,57 @@ ORDER BY salary DESC
 LIMIT 5;
 
 -- 15. Fetch employees hired after 2022
-
+SELECT emp_name,hire_date FROM employees
+WHERE hire_date > '2022-01-01';
 
 -- 16. Fetch employees hired in current year
+SELECT emp_name,hire_date FROM employees
+WHERE hire_date > '2026-01-01';
 
 -- 17. Fetch employees with salary IN (40k, 60k, 80k)
+SELECT emp_name,salary FROM employees
+WHERE salary IN ('40000','60000','80000');
+-- WHERE salary = '40000' OR salary = '60000' OR salary = '80000';
 
 -- 18. Fetch employees excluding salary 50k
+SELECT emp_name,salary FROM employees
+WHERE salary <> '50000';
+-- WHERE salary != '50000';
 
 -- 19. Fetch employees whose salary is multiple of 10,000
+SELECT emp_name,salary FROM employees
+WHERE salary % 10000 = 0;
 
 -- 20. Fetch employees working in IT or HR
+SELECT e.emp_name,e.salary,d.dept_name
+FROM employees e
+INNER JOIN departments d
+on e.dept_id = d.dept_id
+WHERE d.dept_name IN ('IT','HR');
 
 -- 21. Fetch employees not working in IT or HR
+SELECT e.emp_name,e.salary,d.dept_name
+FROM employees e
+INNER JOIN departments d
+on e.dept_id = d.dept_id
+WHERE d.dept_name NOT IN ('IT','HR');
 
 -- 22. Fetch first 10 rows
+SELECT * FROM employees
+LIMIT 10;
 
 -- 23. Fetch last 5 rows
+SELECT * FROM employees
+ORDER BY emp_id DESC
+LIMIT 5;
 
 -- 24. Fetch employees with duplicate names
+SELECT emp_name , COUNT(*)
+FROM employees
+GROUP BY emp_name
+HAVING COUNT(*) > 1;
 
 -- 25. Fetch employees whose email is Gmail
+SELECT emp_name,email
+FROM employees
+WHERE email LIKE '%gmail%';
