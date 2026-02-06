@@ -54,7 +54,7 @@ LIMIT 5;
 
 -- 10. Fetch employees whose name contains ‘son’
 SELECT * FROM employees
-WHERE emp_name = '%son%'
+WHERE emp_name LIKE '%son%'
 LIMIT 5;
 
 -- 11. Fetch employees with NULL manager_id
