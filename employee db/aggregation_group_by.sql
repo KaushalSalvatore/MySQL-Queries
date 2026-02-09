@@ -58,6 +58,10 @@ HAVING AVG_salary > 60000;
 -- ORDER BY hire_year;
 
 -- 12. Find duplicate salaries
+SELECT salary,emp_name
+FROM employees
+GROUP BY salary
+HAVING COUNT(*) > 1;
 
 
 -- 13. Find second highest salary
@@ -67,25 +71,90 @@ ORDER BY salary DESC
 LIMIT 1 OFFSET 1 ; 
 
 -- 14. Find third highest salary
+SELECT emp_name, MAX(salary)
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees)
+LIMIT 1 OFFSET 1 ; 
 
 -- 15. Find top 3 salaries
+SELECT emp_name , salary 
+FROM employees
+ORDER BY salary DESC
+limit 3;
+
+
 
 -- 16. Find department-wise highest salary
+SELECT d.dept_name , MAX(salary) AS max_salary
+FROM departments d
+LEFT JOIN employees e
+on d.dept_id = e.dept_id
+GROUP BY d.dept_name
+ORDER BY max_salary DESC;
 
 -- 17. Find department-wise lowest salary
+SELECT d.dept_name , MIN(e.salary) AS min_salary
+FROM departments d
+LEFT JOIN employees e
+on d.dept_id = e.dept_id
+GROUP BY d.dept_name
+ORDER BY min_salary;
+
 
 -- 18. Find department with maximum employees
+SELECT d.dept_name , COUNT(e.emp_name) AS emp_count
+FROM departments d
+LEFT JOIN employees e
+on d.dept_id = e.dept_id
+GROUP BY d.dept_name
+ORDER BY emp_count DESC
+LIMIT 1;
 
 -- 19. Find department with minimum employees
+SELECT d.dept_name , COUNT(e.emp_name) AS emp_count
+FROM departments d
+LEFT JOIN employees e
+on d.dept_id = e.dept_id
+GROUP BY d.dept_name
+ORDER BY emp_count ASC
+LIMIT 1 ;
 
--- 20. Find departments having only one employee
+-- 20. Find departments having only 3 employee
+SELECT d.dept_name , COUNT(e.emp_name) AS emp_count
+FROM departments d
+LEFT JOIN employees e
+on d.dept_id = e.dept_id
+GROUP BY d.dept_name
+HAVING emp_count = 3 ;
 
--- 1. Find salary range (max-min)
+-- 21. Find salary range (max-min)
+SELECT MAX(salary) - MIN(salary) AS salary_range
+FROM employees;
 
--- 1. Count employees without manager
 
--- 1. Find number of employees per location
+-- 22. Count employees without manager
+SELECT COUNT(*)
+FROM employees
+WHERE manager_id is NULL;
 
--- 1. Find total salary per location
+-- 23. Find number of employees per location
+SELECT d.location , COUNT(*) AS emploee_count
+FROM departments d
+LEFT JOIN employees e 
+ON d.dept_id = e.dept_id
+GROUP BY d.location;
 
--- 1. Find locations where avg salary > company avg
+-- 24. Find total salary per location
+SELECT d.location , SUM(e.salary) AS sum_salary
+FROM departments d
+LEFT JOIN employees e 
+ON d.dept_id = e.dept_id
+GROUP BY d.location;
+
+-- 25. Find locations where avg salary > company avg
+SELECT d.dept_name,d.location,AVG(e.salary) AS avg_salary
+FROM departments d
+LEFT JOIN employees e
+ON d.dept_id = e.dept_id
+GROUP BY d.dept_name
+HAVING AVG(e.salary) > (SELECT AVG(salary) FROM employees);

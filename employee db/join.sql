@@ -1,0 +1,39 @@
+-- 1. Fetch employee name with department name
+-- 2. Fetch employees without department
+-- 3. Fetch departments without employees
+-- 4. Fetch employees working in IT department
+-- 5. Fetch employees along with manager name
+-- 6. Fetch employees earning more than manager
+-- 7. Fetch employees hired before manager
+-- 8. Fetch employee count per department
+-- 9. Fetch department with highest salary expense
+-- 10. Fetch employees not assigned to any project
+-- 11. Fetch projects without employees
+-- 12. Fetch employees working on more than one project
+-- 13. Fetch employees working in same department
+-- 14. Fetch employees working in same department as ‘John’
+-- 15. Fetch employees with department location
+-- 16. Fetch employee name and project name
+-- 17. Fetch employees working on project ‘ABC’
+-- 18. Fetch employees working in multiple projects
+-- 19. Fetch employees who never worked on project
+-- 20. Fetch projects with max employees
+-- 21. Fetch employees even if department does not exist
+-- 22. Fetch common records from two tables
+-- 23. Fetch unmatched records from two tables
+-- 24. Fetch employees whose department is NULL
+-- 25. Fetch employees working in same location
+-- 26. Fetch department-wise employee count using join
+-- 27. Fetch employees earning more than department avg
+-- 28. Fetch employees with same salary in same department
+-- 29. Fetch employees belonging to multiple departments
+-- 30. Fetch employee details with last project
+-- 1. Fetch employees whose department has more than 5 employees
+-- 1. Fetch employees with no manager
+-- 1. Fetch employees who are managers
+-- 1. Fetch employees who are not managers
+-- 1. Fetch employees and their manager’s department
+-- 1. Fetch employees working in manager’s department
+-- 1. Fetch employees reporting to same manager
+-- 1. Fetch department with no managers
+-- 1. Fetch employees whose manager salary is highest
