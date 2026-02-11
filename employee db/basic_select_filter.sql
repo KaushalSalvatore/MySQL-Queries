@@ -51,7 +51,6 @@ SELECT * FROM employees
 WHERE emp_name = '%n'
 LIMIT 5;
 
-
 -- 10. Fetch employees whose name contains ‘son’
 SELECT * FROM employees
 WHERE emp_name LIKE '%son%'
