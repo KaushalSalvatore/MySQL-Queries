@@ -82,8 +82,6 @@ FROM employees
 ORDER BY salary DESC
 limit 3;
 
-
-
 -- 16. Find department-wise highest salary
 SELECT d.dept_name , MAX(salary) AS max_salary
 FROM departments d

@@ -32,6 +32,8 @@
 -- Identify employees earning more than department average.
 -- Find Nth highest salary (N is dynamic).
 -- Divide employees into salary quartiles.
+-- 25. Fetch employees earning more than department avg
+
 
 -- RUNNING TOTALS & AGGREGATIONS
 
