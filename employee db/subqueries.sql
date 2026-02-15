@@ -1,42 +1,77 @@
 -- 1. Find employees earning more than average salary
+SELECT emp_name , salary
+FROM employees 
+WHERE salary > (SELECT AVG(salary) FROM employees);
 
 -- 2. Find employees earning highest salary
+SELECT emp_name , MAX(salary)
+FROM employees;
 
 -- 3. Find employees earning second highest salary
+SELECT emp_name , salary
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees)
+ORDER BY salary DESC 
+LIMIT 1;
 
 -- 4. Find employees earning less than average salary
+SELECT emp_name , salary
+FROM employees 
+WHERE salary < (SELECT AVG(salary) FROM employees);
 
--- 5. Find employees from department with highest avg salary
+-- 5. Find employees name , departemnt , salary , avg department salary and diffrence 
+SELECT 
+    e.emp_name,
+    d.dept_name,
+    e.salary AS emp_salary,
+    avg_table.avg_salary AS dept_avg_salary,
+    e.salary - avg_table.avg_salary AS salary_difference
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id
+JOIN (
+    SELECT dept_id, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY dept_id
+) avg_table
+ON e.dept_id = avg_table.dept_id
+WHERE e.salary > avg_table.avg_salary;
 
--- 1. Find employees not in HR department
+-- 6. Find employees not in HR department
+SELECT emp_id, emp_name 
+FROM employees
+WHERE emp_id != 1;
+-- not in (1)
+-- <> 1
 
--- 1. Find departments with no employees
+-- 7. Find departments with no employees
 
--- 1. Find employees earning more than department avg
 
--- 1. Find employees hired after company avg hire date
+-- 8. Find employees earning more than department avg
 
--- 1. Find department having max employees
+-- 9. Find employees hired after company avg hire date
 
--- 1.  Find employees with same salary
+-- 10. Find department having max employees
 
--- 1.  Find employees earning more than their manager
+-- 11.  Find employees with same salary
 
--- 1.  Find employees working in same department as ‘Alice’
+-- 12.  Find employees earning more than their manager
 
--- 1.  Find employees not working on any project
+-- 13.  Find employees working in same department as ‘Alice’
 
--- 1.  Find employees working on max number of projects
+-- 14.  Find employees not working on any project
 
--- 1.  Find employees whose salary is in top 10%
+-- 15.  Find employees working on max number of projects
 
--- 1.  Find employee with max salary per department
+-- 16.  Find employees whose salary is in top 10%
 
--- 1.  Find departments where avg salary > company avg
+-- 17.  Find employee with max salary per department
 
--- 1.  Find employees hired in earliest year
+-- 18.  Find departments where avg salary > company avg
 
--- 1.  Find employees hired most recently
+-- 19.  Find employees hired in earliest year
+
+-- 20.  Find employees hired most recently
 
 -- 1.  Find projects with max budget
 
