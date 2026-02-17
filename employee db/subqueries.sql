@@ -44,16 +44,35 @@ WHERE emp_id != 1;
 -- not in (1)
 -- <> 1
 
--- 7. Find departments with no employees
+-- 7. count of employees departemnt wise who join after 01-01-2021
+SELECT  d.dept_name , COUNT(*) AS employee_count
+FROM (SELECT dept_id FROM employees
+WHERE joining_date > '2021-01-01')e
+JOIN departments d
+ON e.dept_id = d.dept_id
+GROUP BY d.dept_id;
 
+-- 8. Find employees count earning more than department avg
+SELECT  d.dept_name , COUNT(*) AS employee_count , 
+GROUP_CONCAT(e.emp_name) AS employee_name
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id
+WHERE e.salary > (SELECT AVG(e2.salary) FROM employees e2
+    WHERE e2.dept_id = e.dept_id)
+GROUP BY d.dept_name
+ORDER BY employee_count DESC;
 
--- 8. Find employees earning more than department avg
+-- 09. Find department desc according to max employees
+SELECT d.dept_name , COUNT(*) AS employee_count
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id
+GROUP BY d.dept_id
+ORDER BY employee_count DESC;
 
--- 9. Find employees hired after company avg hire date
+-- 10.  Find employees with same salary
 
--- 10. Find department having max employees
-
--- 11.  Find employees with same salary
 
 -- 12.  Find employees earning more than their manager
 
