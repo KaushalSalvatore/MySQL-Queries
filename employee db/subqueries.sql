@@ -90,19 +90,42 @@ employees WHERE salary =
 -- )
 -- GROUP BY salary;
 
-SELECT emp_name , salary
-FROM employees e 
-JOIN employees e1 
-ON e.salary = e1.salary
-AND e.emp_id <> e1.emp_id ;
+-- SELECT e.emp_name , e.salary
+-- FROM employees e 
+-- JOIN employees e1 
+-- ON e.salary = e1.salary
+-- AND e.emp_id <> e1.emp_id ;
 
 -- 12.  Find employees earning more than their manager
+SELECT e.salary , e.emp_name , m.manager_name , m.salary
+FROM employees e
+JOIN managers m 
+ON e.manager_id = m.manager_id
+WHERE e.salary > m.salary
+GROUP BY m.manager_id;
 
--- 13.  Find employees working in same department as ‘Alice’
+-- 13.  Find employees working in same department as Heena
+SELECT emp_name , dept_id 
+from employees
+WHERE dept_id = (SELECT dept_id FROM employees
+WHERE emp_name LIKE 'Heena%');
 
 -- 14.  Find employees not working on any project
+SELECT e.emp_name 
+FROM employees e
+JOIN employees_project em
+ON e.emp_id = em.emp_id
+WHERE em.project_id is NULL
+GROUP BY e.emp_id;
 
 -- 15.  Find employees working on max number of projects
+SELECT e.emp_name , COUNT(*) AS total_projects
+FROM employees e
+JOIN employees_project em
+ON e.emp_id = em.emp_id
+GROUP BY em.project_id
+ORDER BY total_projects DESC;
+
 
 -- 16.  Find employees whose salary is in top 10%
 
