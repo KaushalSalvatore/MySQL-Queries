@@ -1,4 +1,19 @@
 --1.  Find duplicate records using CTE
+SELECT emp_name FROM employees
+GROUP BY emp_name
+having COUNT(*) > 1;
+
+-- with cte
+WITH duplicate_emp AS (
+    SELECT emp_name FROM employees
+    GROUP BY emp_name
+    HAVING COUNT(*) > 1
+)
+SELECT e.emp_name, e.dept_id
+FROM employees e
+JOIN duplicate_emp dp 
+ON e.emp_name = dp.emp_name;
+
 --1.  Remove duplicate records using CTE
 --1.  Find second highest salary using CTE
 --1.  Find department-wise highest salary using CTE
@@ -23,7 +38,30 @@
 -- RANKING & ORDERING (Very High Frequency)
 
 -- Find highest salary in each department.
+
+SELECT emp_name , salary , dept_id
+FROM (
+    SELECT *, ROW_NUMBER() OVER
+     (PARTITION BY dept_id ORDER BY salary DESC) rn
+    FROM employees
+)
+WHERE rn = 1;
+
+
+
+
+
 -- Find 2nd highest salary in the company.
+SELECT emp_name , salary , dept_id
+FROM (
+    SELECT *, ROW_NUMBER() OVER
+     (ORDER BY salary DESC) rn
+    FROM employees
+)
+WHERE rn = 1;
+
+
+
 -- Find top 3 salaries per department.
 -- Find employees with same salary and same rank.
 -- Difference between RANK() and DENSE_RANK() with example.

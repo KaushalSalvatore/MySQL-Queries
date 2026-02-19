@@ -72,7 +72,29 @@ GROUP BY d.dept_id
 ORDER BY employee_count DESC;
 
 -- 10.  Find employees with same salary
+SELECT emp_name , salary FROM 
+employees WHERE salary = 
+(SELECT salary FROM employees);
 
+-- SELECT emp_name , salary 
+-- FROM employees
+-- GROUP BY salary
+-- HAVING COUNT(*) > 1 ;
+
+-- SELECT emp_name , salary
+-- FROM employees
+-- WHERE salary IN (
+--     SELECT salary FROM employees
+--     GROUP BY salary
+--     HAVING COUNT(*) > 1
+-- )
+-- GROUP BY salary;
+
+SELECT emp_name , salary
+FROM employees e 
+JOIN employees e1 
+ON e.salary = e1.salary
+AND e.emp_id <> e1.emp_id ;
 
 -- 12.  Find employees earning more than their manager
 
