@@ -123,11 +123,26 @@ SELECT e.emp_name , COUNT(*) AS total_projects
 FROM employees e
 JOIN employees_project em
 ON e.emp_id = em.emp_id
-GROUP BY em.project_id
+GROUP BY e.emp_id
 ORDER BY total_projects DESC;
 
+-- SELECT e.emp_name , COUNT(*) AS total_projects
+-- FROM employees e
+-- JOIN employees_project em
+-- ON e.emp_id = em.emp_id
+-- GROUP BY e.emp_id
+-- HAVING total_projects = (
+--     SELECT MAX(project_count)
+--     FROM (
+--         SELECT COUNT(*) AS project_count
+--         FROM employees_project
+--         GROUP BY emp_id
+--     ) );
 
 -- 16.  Find employees whose salary is in top 10%
+SELECT 
+
+
 
 -- 17.  Find employee with max salary per department
 

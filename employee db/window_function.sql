@@ -1,40 +1,3 @@
---1.  Find duplicate records using CTE
-SELECT emp_name FROM employees
-GROUP BY emp_name
-having COUNT(*) > 1;
-
--- with cte
-WITH duplicate_emp AS (
-    SELECT emp_name FROM employees
-    GROUP BY emp_name
-    HAVING COUNT(*) > 1
-)
-SELECT e.emp_name, e.dept_id
-FROM employees e
-JOIN duplicate_emp dp 
-ON e.emp_name = dp.emp_name;
-
---1.  Remove duplicate records using CTE
---1.  Find second highest salary using CTE
---1.  Find department-wise highest salary using CTE
---1.  Find employees earning more than dept avg using CTE
---1.  Rank employees by salary
---1.  Find top 3 salaries per department
---1.  Find running total of salaries
---1.  Recursive CTE for employee hierarchy
---1.  Find manager-wise employee count
---1.  Find employees hired in last 6 months
---1.  Find cumulative salary per department
---1.  Find employees earning more than previous employee
---1.  Remove duplicate rows using ROW_NUMBER
---1.  Find first hired employee per department
---1.  Find last hired employee per department
---1.  Find employees with consecutive salaries
---1.  Find gaps in employee IDs
---1.  Find nth highest salary
---1.  Find employees with same hire date
---1.  Find users logged in for 3 consecutive days
-
 -- RANKING & ORDERING (Very High Frequency)
 
 -- Find highest salary in each department.
@@ -47,10 +10,6 @@ FROM (
 )
 WHERE rn = 1;
 
-
-
-
-
 -- Find 2nd highest salary in the company.
 SELECT emp_name , salary , dept_id
 FROM (
@@ -60,12 +19,22 @@ FROM (
 )
 WHERE rn = 1;
 
-
-
 -- Find top 3 salaries per department.
--- Find employees with same salary and same rank.
--- Difference between RANK() and DENSE_RANK() with example.
+SELECT emp_name , salary , dept_id 
+FROM (
+    SELECT *, ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC)
+    rn FROM employees
+)
+WHERE rn <= 3 ANd dept_id NOT NULL;
+
+-- 4. Find employees with same salary and same rank.
+-- RANK() , DENSE_RANK() , ROW_NUMBER()
+SELECT emp_id , salary , dept_id , DENSE_RANK() OVER(PARTITION BY dept_id ORDER BY salary)
+AS salary_rank
+FROM employees;
+
 -- Assign unique row numbers to records without using ID.
+
 -- Fetch last 3 joined employees in each department.
 -- Identify employees earning more than department average.
 -- Find Nth highest salary (N is dynamic).
