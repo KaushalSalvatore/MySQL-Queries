@@ -1,0 +1,195 @@
+
+
+
+-----------------------------------------------------------------------
+
+Case Study 1: Customer Revenue Analysis
+
+Scenario:
+A company wants to identify its most valuable customers.
+
+Tasks:
+
+Calculate total spending per customer.
+
+Rank customers based on total spending.
+
+Find top 10% customers.
+
+Identify customers contributing to 80% of revenue (Pareto analysis).
+
+----------------------------------------------------------------------------
+
+Case Study 2: Product Performance
+
+Scenario:
+The business wants to understand which products are performing best.
+
+Tasks:
+
+Find total quantity sold per product.
+
+Calculate total revenue per product.
+
+Rank products within each category.
+
+Identify top 3 products per category.
+
+Find products with no sales.
+
+------------------------------------------------------------------------------------
+
+Case Study 3: Store Performance
+
+Scenario:
+Management wants to evaluate store efficiency.
+
+Tasks:
+
+Calculate total revenue per store.
+
+Find average sale value per store.
+
+Rank stores by revenue.
+
+Identify top-performing store in each city.
+
+Find stores with declining revenue trend.
+
+--------------------------------------------------------------------------------------
+
+Case Study 4: Sales Trend Analysis
+
+Scenario:
+Analyze how sales change over time.
+
+Tasks:
+
+Calculate daily total sales.
+
+Compute running total of sales.
+
+Find month-over-month growth.
+
+Identify peak sales month.
+
+Detect sudden drops in sales.
+
+--------------------------------------------------------------------------------------
+
+Case Study 5: Customer Behavior
+
+Scenario:
+Understand customer buying patterns.
+
+Tasks:
+
+Count number of purchases per customer.
+
+Find repeat customers.
+
+Calculate average time between purchases.
+
+Identify customers who stopped purchasing.
+
+Segment customers by purchase frequency.
+
+--------------------------------------------------------------------------------------
+
+Case Study 6: Advanced Revenue Insights
+
+Scenario:
+Finance team wants deeper revenue insights.
+
+Tasks:
+
+Calculate revenue per category.
+
+Find category contribution % to total revenue.
+
+Identify highest revenue-generating category per city.
+
+Detect categories with declining revenue.
+
+Compare store revenue vs category revenue.
+
+----------------------------------------------------------------------------
+
+🔵 Case Study 7: Inventory & Demand Signals
+
+Scenario:
+Predict demand trends using sales data.
+
+Tasks:
+
+Find most frequently sold products.
+
+Identify seasonal demand patterns.
+
+Detect products with increasing demand.
+
+Find slow-moving products.
+
+Rank products by demand growth.
+
+
+----------------------------------------------------------------------------------
+
+🔵 Case Study 8: Multi-Level Ranking Problem
+
+Scenario:
+Build a leaderboard system.
+
+Tasks:
+
+Rank customers globally by spending.
+
+Rank customers within each city.
+
+Find top 3 customers per city.
+
+Assign dense rank vs row number.
+
+Compare ranking methods.
+
+-------------------------------------------------------------------------------
+
+🔵 Case Study 9: Business Health Dashboard
+
+Scenario:
+Create a dashboard for executives.
+
+Tasks:
+
+Total revenue, total sales, total customers.
+
+Average order value.
+
+Top 5 products.
+
+Top 5 customers.
+
+Revenue trend over time.
+
+
+--------------------------------------------------------------------------
+
+Case Study 10: Complex SQL Challenge
+
+Scenario:
+Combine everything (real interview-level).
+
+Tasks:
+
+Use CTE to calculate customer revenue.
+
+Use window function to rank customers.
+
+Use subquery to filter top 20%.
+
+Join with city/store data.
+
+Output final ranked dataset.
+
+
+

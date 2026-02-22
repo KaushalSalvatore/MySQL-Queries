@@ -85,21 +85,29 @@ WHERE e.salary > (
 )
 GROUP BY e.dept_id;
 
-
 -- 10. Find Nth highest salary (N is dynamic).
+SELECT *
+FROM (
+    SELECT emp_name,
+           dept_id,
+           salary,
+           DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) AS rnk
+    FROM employees
+) t
+WHERE rnk = 2;
 
 -- RUNNING TOTALS & AGGREGATIONS
 
--- Calculate running total of salary by join date.
--- Calculate cumulative sales per month.
--- Find department-wise total salary without GROUP BY.
--- Calculate moving average of last 3 salaries.
--- Count number of employees hired till date.
--- Find difference between current and previous row salary.
--- Find maximum salary till current row.
--- Calculate rolling 7-day average.
--- Show percentage contribution of each employee salary.
--- Find running sum reset per department.
+-- 1. Calculate running total of salary by join date.
+-- 2. Calculate cumulative sales per month.
+-- 3. Find department-wise total salary without GROUP BY.
+-- 4. Calculate moving average of last 3 salaries.
+-- 5. Count number of employees hired till date.
+-- 6. Find difference between current and previous row salary.
+-- 7. Find maximum salary till current row.
+-- 8. Calculate rolling 7-day average.
+-- 9. Show percentage contribution of each employee salary.
+-- 10. Find running sum reset per department.
 
 -- LAG / LEAD (VERY COMMON)
 
