@@ -124,27 +124,39 @@ FROM employees e
 JOIN employees_project em
 ON e.emp_id = em.emp_id
 GROUP BY e.emp_id
-ORDER BY total_projects DESC;
+HAVING total_projects = (
+    SELECT MAX(project_count)
+    FROM (
+        SELECT COUNT(*) AS project_count
+        FROM employees_project
+        GROUP BY emp_id
+    ));
 
 -- SELECT e.emp_name , COUNT(*) AS total_projects
 -- FROM employees e
 -- JOIN employees_project em
 -- ON e.emp_id = em.emp_id
 -- GROUP BY e.emp_id
--- HAVING total_projects = (
---     SELECT MAX(project_count)
+-- ORDER BY total_projects DESC;
+
+-- 16. Find employees whose salary is in top 10%
+-- SELECT emp_name , salary 
+-- FROM employees
+-- WHERE salary >= (
+--     SELECT MIN(salary)
 --     FROM (
---         SELECT COUNT(*) AS project_count
---         FROM employees_project
---         GROUP BY emp_id
---     ) );
+--         SELECT DISTINCT salary
+--         FROM employees
+--         ORDER BY salary DESC
+--         LIMIT 10 PERCENT 
+--     ) t
+-- );
 
--- 16.  Find employees whose salary is in top 10%
-SELECT 
-
-
-
--- 17.  Find employee with max salary per department
+-- 17. Find employee with max salary per department
+SELECT emp_name,salary,dept_id
+FROM employees e
+WHERE salary = (SELECT MAX(salary) FROM employees
+WHERE dept_id = e.dept_id);
 
 -- 18.  Find departments where avg salary > company avg
 
