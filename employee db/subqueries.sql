@@ -173,30 +173,30 @@ ON e.dept_id = d.dept_id
 WHERE d.location = 'Delhi';
 
 -- 20.  Find employees whose department has only one employee
-
-
-
+SELECT e.emp_name , d.dept_name
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id
+WHERE e.dept_id IN (SELECT dept_id FROM employees
+GROUP BY dept_id
+HAVING COUNT(*) = 1);
 
 -- 21.  Find employees earning more than IT department avg
+SELECT e.emp_name , d.dept_name , e.salary
+As avg_salary
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id
+WHERE e.salary > 
+(SELECT AVG(e2.salary) 
+FROM employees e2
+JOIN departments d2
+ON e2.dept_id = d2.dept_id
+ WHERE d2.dept_name = 'IT') ;
 
--- 22.  Find departments with total salary > 1 million
-
--- 23.  Find employees whose manager earns less than avg
-
--- 24.  Find departments having duplicate salaries
-
--- 1.  Find employees working on same project as manager
-
--- 1.  Find employees with salary greater than all HR salaries
-
--- 1.  Find employees with salary greater than any HR salary
-
--- 1.  Find employees whose department has max salary
-
--- 1.  Find departments with min employee count
-
--- 1.  Find employees whose salary equals department max
-
--- 1.  Find employees without department using subquery
-
--- 1.  Find projects without employees using subquery
+-- 22.  Find employees working on same project as manager
+SELECT GROUP_CONCAT(e.emp_name) AS emp_list , m.manager_name
+FROM employees e
+JOIN managers m
+ON e.manager_id = m.manager_id
+GROUP BY m.manager_name;
