@@ -1,4 +1,4 @@
---1. Total sales quantity per product.
+--1. 
 
 --2. Total revenue per store.
 

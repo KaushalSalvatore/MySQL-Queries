@@ -158,25 +158,32 @@ FROM employees e
 WHERE salary = (SELECT MAX(salary) FROM employees
 WHERE dept_id = e.dept_id);
 
--- 18.  Find departments where avg salary > company avg
+-- 18.  Find departments avg salary and  company avg in desc mode
+SELECT dept_id , AVG(salary) AS dept_avg , 
+(SELECT AVG(salary) FROM employees) As company_avg_salary
+FROM employees
+GROUP BY dept_id
+ORDER BY dept_avg DESC;
+  
+-- 19.  Find employees in departments located in ‘Delhi’
+SELECT e.emp_name , d.dept_name
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id
+WHERE d.location = 'Delhi';
 
--- 19.  Find employees hired in earliest year
+-- 20.  Find employees whose department has only one employee
 
--- 20.  Find employees hired most recently
 
--- 1.  Find projects with max budget
 
--- 1.  Find employees in departments located in ‘Delhi’
 
--- 1.  Find employees whose department has only one employee
+-- 21.  Find employees earning more than IT department avg
 
--- 1.  Find employees earning more than IT department avg
+-- 22.  Find departments with total salary > 1 million
 
--- 1.  Find departments with total salary > 1 million
+-- 23.  Find employees whose manager earns less than avg
 
--- 1.  Find employees whose manager earns less than avg
-
--- 1.  Find departments having duplicate salaries
+-- 24.  Find departments having duplicate salaries
 
 -- 1.  Find employees working on same project as manager
 

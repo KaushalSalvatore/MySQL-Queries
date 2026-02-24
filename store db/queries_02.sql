@@ -1,4 +1,4 @@
---1. List all sales with customer names.
+--1. Total sales quantity per product.
 
 --2. Show product name with each sale.
 
