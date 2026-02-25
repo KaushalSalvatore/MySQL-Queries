@@ -1,4 +1,18 @@
---1. 
+--1. show all duplicate product with name and quntity and id
+SELECT 
+    p.product_id,
+    p.product_name,
+    i.stock_qty
+FROM inventory i
+JOIN products p
+ON i.product_id = p.product_id
+WHERE p.product_name IN (
+    SELECT product_name
+    FROM products
+    GROUP BY product_name
+    HAVING COUNT(*) > 1
+)
+ORDER BY p.product_name;
 
 --2. Total revenue per store.
 
