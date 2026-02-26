@@ -68,7 +68,6 @@ FROM customers
 ORDER BY first_name ASC;
 
 --10. Sort sales by quantity descending.
-SELECT
-FROM
-JOIN
-ON
+SELECT order_id , SUM(quantity) AS total_quntity
+FROM order_items
+GROUP BY order_id;

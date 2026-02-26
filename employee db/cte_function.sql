@@ -13,6 +13,23 @@ JOIN duplicate_emp dp
 ON e.emp_name = dp.emp_name;
 
 --2. Find employees with consecutive salaries
+-- SELECT emp_name , salary
+-- FROM employees e
+-- JOIN employees e1
+-- ON e.salary = e1.salary + 1
+-- ORDER BY salary;
+
+WITH salary_cte AS (
+    SELECT 
+        emp_name,
+        salary,
+        LAG(salary) OVER (ORDER BY salary) AS prev_salary
+    FROM employees
+)
+SELECT emp_name, salary
+FROM salary_cte
+WHERE salary = prev_salary + 1;
+
 
 --3.  Find second highest salary using CTE
 --4.  Find department-wise highest salary using CTE
