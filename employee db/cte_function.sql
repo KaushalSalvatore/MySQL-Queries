@@ -1,20 +1,18 @@
 --1.  Find duplicate records using CTE
-SELECT emp_name FROM employees
-GROUP BY emp_name
-having COUNT(*) > 1;
-
+-- SELECT emp_name FROM employees
+-- GROUP BY emp_name
+-- having COUNT(*) > 1;
 -- with cte
 WITH duplicate_emp AS (
     SELECT emp_name FROM employees
     GROUP BY emp_name
-    HAVING COUNT(*) > 1
-)
+    HAVING COUNT(*) > 1)
 SELECT e.emp_name, e.dept_id
 FROM employees e
 JOIN duplicate_emp dp 
 ON e.emp_name = dp.emp_name;
 
---2.  Remove duplicate records using CTE
+--2. Find employees with consecutive salaries
 
 --3.  Find second highest salary using CTE
 --4.  Find department-wise highest salary using CTE
@@ -30,7 +28,7 @@ ON e.emp_name = dp.emp_name;
 --14.  Remove duplicate rows using ROW_NUMBER
 --15.  Find first hired employee per department
 --16.  Find last hired employee per department
---1.  Find employees with consecutive salaries
+--1.  
 --1.  Find gaps in employee IDs
 --1.  Find nth highest salary
 --1.  Find employees with same hire date

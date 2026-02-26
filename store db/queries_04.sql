@@ -1,0 +1,79 @@
+--  Total sales per quater Moonth
+--  Get total sales quantity per customer.
+--  Find total revenue generated per store using sales.
+
+-- List customer, product, and store for each sale.
+-- 
+-- Get total spending per customer.
+-- 
+-- Find most sold product.
+-- 
+-- Get least sold product.
+-- 
+-- Find total sales per city.
+-- 
+-- Get total revenue per product category.
+-- 
+-- Find stores with highest number of sales.
+-- 
+-- Show top 5 customers by spending.
+-- 
+-- Find customers with total purchases > 1000.
+-- 
+-- Get stores with revenue > 50,000.
+-- 
+-- Find categories with avg price > 200.
+-- 
+-- Get products sold more than 50 times.
+-- 
+-- Find customers with more than 10 purchases.
+-- 
+-- Find products priced above average price.
+-- 
+-- Get customers who made at least one purchase.
+-- 
+-- Find products never sold.
+-- 
+-- Get stores with revenue higher than average.
+-- 
+-- Find customers who spent more than average.
+-- 
+-- Find customers whose spending is above their city average.
+-- 
+-- Get products whose price is above category average.
+-- 
+-- Find stores whose revenue is above their city average.
+-- 
+-- Get sales where quantity is above average quantity.
+-- 
+-- Find customers who bought more than average number of items.
+-- 
+-- Rank products by price.
+-- 
+-- Assign row number to sales ordered by date.
+-- 
+-- Get cumulative sales quantity.
+-- 
+-- Rank customers by total spending.
+-- 
+-- Get running total revenue per store.
+-- 
+-- Find top product per category using RANK.
+-- 
+-- Get second highest priced product.
+-- 
+-- Find top 3 customers per city.
+-- 
+-- Get dense rank of stores by revenue.
+-- 
+-- Calculate moving average of revenue.
+-- 
+-- Use CTE to calculate total sales per customer.
+-- 
+-- Use CTE to find top 5 products.
+-- 
+-- Use CTE to filter high revenue stores.
+-- 
+-- Use CTE to find avg sales per store.
+-- 
+-- Use CTE to find customers with high spending.

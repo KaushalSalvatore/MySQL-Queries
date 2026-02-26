@@ -68,18 +68,19 @@ FROM orders o
 JOIN order_items oi
 ON o.order_id = oi.order_id
 GROUP BY year, week_number
+HAVING SUM(oi.quantity * oi.unit_price) > 50000
 ORDER BY year, week_number;
 
-SELECT 
-    YEAR(o.order_date) AS year,
-    WEEK(o.order_date) AS week_number,
-    SUM(oi.quantity) AS total_quantity,
-    SUM(oi.quantity * oi.unit_price) AS total_revenue
-FROM orders o
-JOIN order_items oi
-ON o.order_id = oi.order_id
-GROUP BY YEAR(o.order_date), WEEK(o.order_date)
-ORDER BY year, week_number;
+-- SELECT 
+--     YEAR(o.order_date) AS year,
+--     WEEK(o.order_date) AS week_number,
+--     SUM(oi.quantity) AS total_quantity,
+--     SUM(oi.quantity * oi.unit_price) AS total_revenue
+-- FROM orders o
+-- JOIN order_items oi
+-- ON o.order_id = oi.order_id
+-- GROUP BY YEAR(o.order_date), WEEK(o.order_date)
+-- ORDER BY year, week_number;
 
 --10. Get products in Electronics category.
 SELECT DISTINCT(product_name)
