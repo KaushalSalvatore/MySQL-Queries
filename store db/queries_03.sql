@@ -35,7 +35,7 @@ JOIN categories c
 ON p.category_id = c.category_id
 GROUP BY c.category_id;
 
---5. Total sales per Moonth.
+--5. Total sales per Month.
 SELECT
     strftime('%Y', date) AS years,
     strftime('%m', date) AS month_number,

@@ -110,6 +110,7 @@ WHERE rnk = 2;
 -- 10. Find running sum reset per department.
 
 -- LAG / LEAD (VERY COMMON)
+-- Find employees with consecutive salaries
 
 -- Compare current salary with previous employee salary.
 -- Find salary hike compared to previous month.
