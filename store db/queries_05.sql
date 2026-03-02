@@ -1,4 +1,4 @@
--- 1. Show top 5 customers by spending.
+-- 1. Find customers who spent more than average.
 
 -- 2. Find customers with total purchases > 1000.
 
