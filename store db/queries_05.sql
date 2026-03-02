@@ -1,4 +1,5 @@
--- 1. Find customers who spent more than average.
+
+-- 1. Find customers whose spending is above their city average.
 
 -- 2. Find customers with total purchases > 1000.
 

@@ -70,9 +70,36 @@ ON s.store_id =  rd.store_id
 GROUP BY s.city
 ORDER BY store_total_revenue DESC;
 
+-- 9. Find customers who spent more than average.
+SELECT 
+    cust.first_name || ' ' || cust.last_name AS customer_name,
+    SUM(p.amount) AS total_spent
+FROM customers cust
+JOIN orders o
+ON cust.customer_id = o.customer_id
+JOIN payments p
+ON o.order_id = p.order_id
+GROUP BY cust.customer_id
+HAVING total_spent > (
+    SELECT AVG(customer_total)
+    FROM (
+        SELECT SUM(p2.amount) AS customer_total
+        FROM orders o2
+        JOIN payments p2
+        ON o2.order_id = p2.order_id
+        GROUP BY o2.customer_id
+    )
+);
 
-
--- 9. Get total revenue per product category.
- 
 -- 10 Show top 5 customers by spending.
-
+SELECT 
+    cust.first_name || ' ' || cust.last_name AS customer_name,
+    SUM(p.amount) AS total_spent
+FROM customers cust
+JOIN orders o
+ON cust.customer_id = o.customer_id
+JOIN payments p
+ON o.order_id = p.order_id
+GROUP BY cust.customer_id
+ORDER BY total_spent DESC
+LIMIT 5;

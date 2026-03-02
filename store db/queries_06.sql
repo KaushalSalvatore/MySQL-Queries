@@ -1,6 +1,3 @@
--- Find customers who spent more than average.
-
--- Find customers whose spending is above their city average.
 
 -- Get products whose price is above category average.
 
