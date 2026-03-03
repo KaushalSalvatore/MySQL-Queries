@@ -42,12 +42,33 @@ ON o.order_id = p.order_id
 GROUP BY cust.customer_id
 HAVING SUM(p.amount) > 10000;
 
--- 3. Get stores with revenue > 50000.
+-- 3. Get stores with revenue > 100000.
+SELECT s.store_name , rv.revenue
+FROM stores s
+JOIN revenue_daily rv
+ON s.store_id = rv.store_id
+WHERE rv.revenue > 140000
+GROUP BY s.store_name;
 
+-- 4. Find categories with avg price > 32000.
+SELECT c.category_name , AVG(p.price) AS avg_price
+FROM products p 
+JOIN categories c
+ON p.category_id = c.category_id 
+GROUP BY c.category_id
+HAVING avg_price > 32000;
 
--- 4. Find categories with avg price > 2000.
-
--- 5. Get products sold more than 50 times.
+-- 5. Get products sold more than 30 qty.
+SELECT 
+    p.product_id,
+    p.product_name,
+    SUM(oi.quantity) AS total_qty
+FROM order_items oi
+JOIN products p
+ON oi.product_id = p.product_id
+GROUP BY p.product_id, p.product_name
+HAVING SUM(oi.quantity) > 30
+ORDER BY total_qty DESC;
 
 -- 6. Find customers with more than 10 purchases.
  
