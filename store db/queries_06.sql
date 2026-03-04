@@ -1,38 +1,20 @@
+-- 1. Get products whose price is above category average.
 
--- Get products whose price is above category average.
+-- 2. Find stores whose revenue is above their city average.
 
--- Find stores whose revenue is above their city average.
+-- 3. Get sales where quantity is above average quantity.
 
--- Get sales where quantity is above average quantity.
+-- 4. Find customers who bought more than average number of items.
 
--- Find customers who bought more than average number of items.
+-- 5. Rank products by price.
 
--- Rank products by price.
+-- 6. Assign row number to sales ordered by date.
 
--- Assign row number to sales ordered by date.
+-- 7. Get cumulative sales quantity.
 
--- Get cumulative sales quantity.
+-- 8. Rank customers by total spending.
 
--- Rank customers by total spending.
+-- 9. Get running total revenue per store.
 
--- Get running total revenue per store.
+-- 10. Find top product per category using RANK.
 
--- Find top product per category using RANK.
-
--- Get second highest priced product.
-
--- Find top 3 customers per city.
-
--- Get dense rank of stores by revenue.
-
--- Calculate moving average of revenue.
-
--- Use CTE to calculate total sales per customer.
-
--- Use CTE to find top 5 products.
-
--- Use CTE to filter high revenue stores.
-
--- Use CTE to find avg sales per store.
-
--- Use CTE to find customers with high spending.

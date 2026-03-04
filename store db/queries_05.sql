@@ -70,12 +70,49 @@ GROUP BY p.product_id, p.product_name
 HAVING SUM(oi.quantity) > 30
 ORDER BY total_qty DESC;
 
--- 6. Find customers with more than 10 purchases.
- 
--- 7. Find products priced above average price.
+-- 6. Find customers with more than 5 times.
+SELECT 
+    cust.first_name,
+    COUNT(o.order_id) AS customer_order_count
+FROM customers cust
+JOIN orders o
+ON cust.customer_id = o.customer_id
+GROUP BY cust.customer_id, cust.first_name
+HAVING COUNT(o.order_id) > 5
+ORDER BY customer_order_count DESC;
 
--- 8. Get customers who made at least one purchase.
+-- 7. Find products priced above average price.
+SELECT product_name , price
+FROM products 
+WHERE price > (
+    SELECT AVG(price) FROM products);
+
+-- 8. Get customers who made only one purchase.
+SELECT 
+    cust.first_name,
+    COUNT(o.order_id) AS customer_order_count
+FROM customers cust
+JOIN orders o
+ON cust.customer_id = o.customer_id
+GROUP BY cust.customer_id, cust.first_name
+HAVING COUNT(o.order_id) = 1
+ORDER BY customer_order_count DESC;
 
 -- 9. Find products never sold.
+SELECT p.product_name , p.product_id
+FROM products p
+LEFT JOIN order_items oi
+ON p.product_id = oi.product_id
+WHERE oi.product_id IS NULL;
 
--- 10. Get stores with revenue higher than average.
+-- 10. Get stores with revenue higher than 20% average.
+SELECT s.store_name , SUM(rv.revenue) AS total_speding
+FROM stores  s
+JOIN revenue_daily rv
+ON s.store_id = rv.store_id
+GROUP BY s.store_id,s.store_name
+HAVING total_speding > (
+    SELECT AVG(revenue) * 1.2
+    FROM revenue_daily
+);
+
