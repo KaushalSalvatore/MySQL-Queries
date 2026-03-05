@@ -39,9 +39,31 @@ GROUP BY order_item_id
 HAVING product_id > avg_qty;
 
 -- 4. Find customers who bought more than average number of items.
+WITH customer_totals AS (
+    SELECT 
+        c.customer_id,
+        c.first_name,
+        SUM(oi.quantity) AS total_items
+    FROM customers c
+    JOIN orders o
+        ON c.customer_id = o.customer_id
+    JOIN order_items oi
+        ON o.order_id = oi.order_id
+    GROUP BY c.customer_id, c.first_name
+)
 
+SELECT *
+FROM customer_totals
+WHERE total_items > (
+    SELECT AVG(total_items)
+    FROM customer_totals
+)
+ORDER BY total_items DESC;
 
 -- 5. Rank products by price.
+SELECT product_name , price ,RANK() OVER(ORDER BY price DESC) 
+AS produst_rank
+FROM products;
 
 -- 6. Assign row number to sales ordered by date.
 
