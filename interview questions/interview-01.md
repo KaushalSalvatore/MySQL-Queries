@@ -153,44 +153,124 @@ Method	When to Use
 
 #### Q-10 How would you find the 2nd highest salary from an employee table without using TOP or LIMIT ? 
 ```bash
+SELECT MAX(salary) AS second_highest_salary
+FROM employee
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM employee
+);
+------------------------------------------------
+SELECT name, dept, salary
+FROM (
+    SELECT 
+        name,
+        dept,
+        salary,
+        DENSE_RANK() OVER (ORDER BY salary DESC) AS rk
+    FROM employee
+) t
+WHERE rk = 2;
 ```
 
 #### Q-11 Write a query to fetch duplicate records from a table with employee name and salary ? 
 ```bash
+SELECT e1.name, e1.salary
+FROM employee e1
+JOIN employee e2
+ON e1.name = e2.name
+AND e1.salary = e2.salary
+AND e1.id > e2.id;
+-----------------------------------------------------------
+SELECT name, salary, COUNT(*) AS duplicate_count
+FROM employee
+GROUP BY name, salary
+HAVING COUNT(*) > 1;
+---------------------------------------------------------
+SELECT *
+FROM (
+    SELECT *,
+           COUNT(*) OVER(PARTITION BY name, salary) AS cnt
+    FROM employee
+) t
+WHERE cnt > 1;
 ```
 
 #### Q-12 How will you remove duplicate records without using DISTINCT ? 
 ```bash
+DELETE e1
+FROM employee e1
+JOIN employee e2
+ON e1.name = e2.name
+AND e1.salary = e2.salary
+AND e1.id > e2.id;
+-----------------------------------------
+DELETE FROM employee
+WHERE id NOT IN (
+    SELECT MIN(id)
+    FROM employee
+    GROUP BY name, salary
+);
 ```
 
 #### Q-13 Suppose you have a table with Employee, Salary, and Department. How would you return the top 3 highest salaries from each department? 
 ```bash
+SELECT name, salary, dept
+FROM (
+    SELECT 
+        name,
+        salary,
+        dept,
+        DENSE_RANK() OVER(
+            PARTITION BY dept 
+            ORDER BY salary DESC
+        ) AS rnk
+    FROM employee
+) t
+WHERE rnk <= 3;
 ```
 
 #### Q-14 What will be your approach to increment salary by 10% for employees having salary less than 50K in one query? 
 ```bash
+UPDATE employee
+SET salary = salary * 1.10
+WHERE salary < 50000;
 ```
 
 #### Q-15 How would you identify the missing numbers between 1 to 100 from an employee ID column?
 ```bash
+SELECT n.num AS missing_id
+FROM (
+    SELECT generate_series(1,100) AS num
+) n
+LEFT JOIN employee e
+ON n.num = e.employee_id
+WHERE e.employee_id IS NULL;
+
+------------------------------------------------
+
+SELECT e1.employee_id + 1 AS missing_id
+FROM employee e1
+LEFT JOIN employee e2
+ON e1.employee_id + 1 = e2.employee_id
+WHERE e2.employee_id IS NULL;
 ```
 
-#### Q-16
+#### Q-16 You are given a table EmployeeLogs with columns EmployeeID, LoginTime, LogoutTime, and Date. Write a query to calculate the longest continuous working streak (consecutive days without missing a login) for each employee ?
 ```bash
 ```
 
-#### Q-17
+#### Q-17 A table SalesData contains columns TransactionID, Region, ProductID, SaleDate, and Revenue. Write a query to identify the top 3 products with the highest cumulative revenue in each region over the last financial  year ?
 ```bash
 ```
 
-#### Q-18
+#### Q-18 Explain the concept of window functions and how they differ from aggregate functions, with examples of use cases ?
 ```bash
 ```
 
-#### Q-19
+#### Q-19 Describe how ACID properties are maintained in modern relational databases and the challenges associated with distributed systems ?
 ```bash
 ```
 
-#### Q-20
+#### Q-20 Explain how different types of indexes (e.g., clustered, non-clustered) impact query performance in large datasets ? 
 ```bash
 ```
