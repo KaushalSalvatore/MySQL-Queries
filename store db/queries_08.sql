@@ -1,3 +1,5 @@
+-- 10. Find top product per category using RANK.
+
 -- 1. Get best-selling product per store.
 -- 1. Find customer who bought most expensive product.
 -- 1. Get store with highest average sale value.

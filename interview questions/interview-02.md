@@ -1,12 +1,12 @@
-#### Q-1
+#### Q-1 From a transactions table, write a query to identify users who placed more than 20 critical orders every week for at least 1 month ?
 ```bash
 ```
 
-#### Q-2
+#### Q-2 How do you handle NULL values in SQL joins ? 
 ```bash
 ```
 
-#### Q-3
+#### Q-3 Write an SQL query to calculate the customer churn rate over the last 6 months ?
 ```bash
 ```
 

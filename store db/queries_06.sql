@@ -65,12 +65,64 @@ SELECT product_name , price ,RANK() OVER(ORDER BY price DESC)
 AS produst_rank
 FROM products;
 
--- 6. Assign row number to sales ordered by date.
+-- 6. Assign row number to sales completed ordered with customer name by date.
+SELECT c.first_name, o.order_date , o.customer_id , o.status , 
+DENSE_RANK() OVER(ORDER BY c.first_name, o.order_date) AS order_rank
+from orders o
+JOIN customers c
+ON o.customer_id = c.customer_id
+WHERE o.status = 'completed';
 
 -- 7. Get cumulative sales quantity.
+SELECT 
+    customer_id,
+    order_date,
+    oi.quantity,
+    SUM(oi.quantity) OVER(
+       ORDER BY o.order_date, o.order_id
+    ) AS cumulative_sales_qty
+FROM orders o
+JOIN order_items oi
+ON o.order_id = oi.order_id ;
 
--- 8. Rank customers by total spending.
+-- 8. Get cumulative sales quantity by customer.
+SELECT 
+    o.customer_id,
+    o.order_date,
+    oi.quantity,
+    SUM(oi.quantity) OVER(
+        PARTITION BY o.customer_id
+        ORDER BY o.order_date, o.order_id
+    ) AS cumulative_sales_qty
+FROM orders o
+JOIN order_items oi
+ON o.order_id = oi.order_id;
 
--- 9. Get running total revenue per store.
+-- 9. Rank customers by total spending.
+SELECT 
+    c.customer_id,
+    c.first_name,
+    GROUP_CONCAT(o.order_id) AS orders,
+    SUM(p.amount) AS total_spending,
+    DENSE_RANK() OVER(ORDER BY SUM(p.amount) DESC) AS customer_rank
+FROM customers c
+JOIN orders o
+ON c.customer_id = o.customer_id
+JOIN payments p
+ON o.order_id = p.order_id
+GROUP BY c.customer_id, c.first_name;
 
--- 10. Find top product per category using RANK.
+-- 10. Get rank running total revenue per store.
+WITH store_sales AS (
+SELECT 
+    s.store_id,
+    s.store_name,
+    SUM(rd.revenue) AS total_revenue
+FROM stores s
+JOIN revenue_daily rd
+ON s.store_id = rd.store_id
+GROUP BY s.store_id, s.store_name
+)
+SELECT *,
+DENSE_RANK() OVER(ORDER BY total_revenue DESC) AS store_rank
+FROM store_sales;
