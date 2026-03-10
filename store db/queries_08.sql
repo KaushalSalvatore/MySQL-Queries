@@ -1,4 +1,3 @@
--- 10. Find top product per category using RANK.
 
 -- 1. Get best-selling product per store.
 -- 1. Find customer who bought most expensive product.
@@ -9,6 +8,7 @@
 -- 1. Find products sold in all stores.
 -- 1. Get customers who never purchased anything.
 -- 1. Find stores with no sales.
+
 -- 1. Rank sales within each store by quantity.
 -- 1. Get top 3 sales per store.
 -- 1. Calculate percentage contribution of each sale.
@@ -20,6 +20,7 @@
 -- 1. Use recursive CTE for sequence.
 -- 1. Use CTE to filter top 10% customers.
 -- 1. Find customers contributing to 80% revenue.
+
 -- 1. Get products with declining sales trend.
 -- 1. Find stores with consistent growth.
 -- 1. Identify peak sales month.
