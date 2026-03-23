@@ -112,8 +112,10 @@ WHERE o.store_id IS NULL;
 -- );
 
 -- 10. Find repeat customers order more then 5 times.
-SELECT c.customer_id , c.first_name , c.city
+SELECT c.customer_id , c.first_name , c.city ,
+ COUNT(o.order_id) AS total_orders
 FROM customers c
 JOIN orders o 
-ON c.customer_id = o,customer_id
-WHERE 
+ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.first_name, c.city
+HAVING COUNT(o.order_id) > 5;
