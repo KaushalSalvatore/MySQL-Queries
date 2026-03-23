@@ -69,11 +69,51 @@ FROM (
 WHERE rnk = 1;
 
 -- 6. Get stores selling products above average price.
+SELECT DISTINCT s.store_name
+FROM stores s
+JOIN inventory i
+    ON s.store_id = i.store_id
+JOIN products p
+    ON i.product_id = p.product_id
+WHERE p.price > (
+    SELECT AVG(price) FROM products
+);
 
 -- 7. Find products sold in all stores.
+SELECT p.product_name
+FROM products p
+JOIN inventory i
+    ON p.product_id = i.product_id
+GROUP BY p.product_id, p.product_name
+HAVING COUNT(DISTINCT i.store_id) = (
+    SELECT COUNT(*) FROM stores
+);
 
 -- 8. Get customers who never purchased anything.
+SELECT c.first_name , c.city
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+WHERE o.customer_id is NULL;
 
 -- 9. Find stores with no sales.
+SELECT s.store_name , s.city
+FROM stores s
+LEFT JOIN orders o 
+ON s.store_id = o.store_id
+WHERE o.store_id IS NULL;
 
--- 10. Find repeat customers.
+-- SELECT s.store_name, s.city
+-- FROM stores s
+-- WHERE NOT EXISTS (
+--     SELECT 1
+--     FROM orders o
+--     WHERE o.store_id = s.store_id
+-- );
+
+-- 10. Find repeat customers order more then 5 times.
+SELECT c.customer_id , c.first_name , c.city
+FROM customers c
+JOIN orders o 
+ON c.customer_id = o,customer_id
+WHERE 
