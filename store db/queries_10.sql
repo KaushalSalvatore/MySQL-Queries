@@ -1,0 +1,9 @@
+-- 1. Get best-selling product per store.
+-- 1. Get products with declining sales trend.
+-- 1. Find stores with consistent growth.
+-- 1. Identify peak sales month.
+-- 1. Get average gap between purchases.
+-- 1. Find most popular product per city.
+-- 1. Calculate customer lifetime value.
+-- 1. Find top 3 categories by revenue.
+-- 1. Combine JOIN + CTE + WINDOW to rank customers globally.
