@@ -1,8 +1,29 @@
 -- 1. Get top 3 sales per store.
-
+SELECT *
+FROM (
+    SELECT 
+        s.store_name,
+        rv.date,
+        rv.revenue,
+        ROW_NUMBER() OVER(
+            PARTITION BY s.store_name
+            ORDER BY rv.revenue DESC
+        ) AS rn
+    FROM stores s
+    JOIN revenue_daily rv
+        ON s.store_id = rv.store_id
+) t
+WHERE rn <= 3;
 
 -- 2. Calculate percentage contribution of each sale.
-
+SELECT 
+    s.store_name,
+    SUM(r.revenue) AS total_revenue,
+    (SUM(r.revenue) * 100.0 / SUM(SUM(r.revenue)) OVER()) AS pct_contribution
+FROM stores s
+JOIN revenue_daily r
+    ON s.store_id = r.store_id
+GROUP BY s.store_name;
 
 -- 3. Find difference between consecutive sales.
 
