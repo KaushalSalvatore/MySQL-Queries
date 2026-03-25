@@ -257,20 +257,129 @@ WHERE e2.employee_id IS NULL;
 
 #### Q-16 You are given a table EmployeeLogs with columns EmployeeID, LoginTime, LogoutTime, and Date. Write a query to calculate the longest continuous working streak (consecutive days without missing a login) for each employee ?
 ```bash
+Use ROW_NUMBER + date offset trick (gap & island problem) to group consecutive records.
+
+WITH distinct_days AS (
+    SELECT DISTINCT 
+        EmployeeID,
+        Date
+    FROM EmployeeLogs
+),
+numbered AS (
+    SELECT 
+        EmployeeID,
+        Date,
+        ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY Date) AS rn
+    FROM distinct_days
+),
+grouped AS (
+    SELECT 
+        EmployeeID,
+        Date,
+        Date - (rn * INTERVAL '1 day') AS grp
+    FROM numbered
+),
+streaks AS (
+    SELECT 
+        EmployeeID,
+        COUNT(*) AS streak_length
+    FROM grouped
+    GROUP BY EmployeeID, grp
+)
+SELECT 
+    EmployeeID,
+    MAX(streak_length) AS longest_streak
+FROM streaks
+GROUP BY EmployeeID;
 ```
 
 #### Q-17 A table SalesData contains columns TransactionID, Region, ProductID, SaleDate, and Revenue. Write a query to identify the top 3 products with the highest cumulative revenue in each region over the last financial  year ?
 ```bash
+Financial year = April 1 to March 31
+
+WITH filtered_data AS (
+    SELECT *
+    FROM SalesData
+    WHERE SaleDate >= DATE '2024-04-01'
+      AND SaleDate <  DATE '2025-04-01'
+),
+aggregated AS (
+    SELECT 
+        Region,
+        ProductID,
+        SUM(Revenue) AS total_revenue
+    FROM filtered_data
+    GROUP BY Region, ProductID
+),
+ranked AS (
+    SELECT 
+        Region,
+        ProductID,
+        total_revenue,
+        RANK() OVER (PARTITION BY Region ORDER BY total_revenue DESC) AS rnk
+    FROM aggregated
+)
+SELECT 
+    Region,
+    ProductID,
+    total_revenue
+FROM ranked
+WHERE rnk <= 3;
 ```
 
 #### Q-18 Explain the concept of window functions and how they differ from aggregate functions, with examples of use cases ?
 ```bash
+Window functions:
+👉 Perform calculations across a set of rows (window)
+👉 BUT do NOT collapse rows
+
+Aggregate functions collapse rows into groups, while window functions perform calculations across rows without losing 
+the original data.
 ```
 
 #### Q-19 Describe how ACID properties are maintained in modern relational databases and the challenges associated with distributed systems ?
 ```bash
+ACID properties ensure reliable and consistent transactions in relational databases.
+1. Atomicity (All or Nothing)
+Ensures a transaction either fully completes or fully rolls back
+Maintained using undo logs / transaction logs
+If a failure occurs, the database rolls back incomplete changes
+
+👉 Example: Bank transfer—if debit succeeds but credit fails, everything is rolled back
+
+2. Consistency (Valid State)
+Ensures database always moves from one valid state to another
+Maintained using:
+Constraints (PRIMARY KEY, FOREIGN KEY, CHECK)
+Triggers and business rules
+
+👉 Prevents invalid data (e.g., negative balance)
+
+3. Isolation (Concurrency Control)
+Ensures transactions don’t interfere with each other
+Maintained using:
+Locking (pessimistic)
+MVCC (multi-version concurrency control)
+
+👉 Example:
+
+PostgreSQL uses MVCC so reads don’t block writes
+
+4. Durability (No Data Loss)
+Once committed, data is permanently stored
+Maintained using:
+Write-Ahead Logging (WAL)
+Disk persistence
+
+👉 Example:
+
+MySQL (InnoDB) ensures committed data survives crashes
 ```
 
 #### Q-20 Explain how different types of indexes (e.g., clustered, non-clustered) impact query performance in large datasets ? 
 ```bash
+Clustered index stores actual data in sorted order → best for range queries
+Non-clustered index stores pointers → best for fast lookups
+Indexes reduce read time but increase write cost
+Proper indexing is critical for large datasets to avoid full scans
 ```
