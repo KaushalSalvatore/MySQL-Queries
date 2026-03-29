@@ -57,12 +57,65 @@ FROM (
 WHERE DATEDIFF(login_date, prev_login) > 1;
 ```
 
-#### Q-4
+#### Q-4 SQL execution flow - 1
 ```bash
+SELECT emp_name , salary
+FROM employees 
+WHERE salary < (SELECT AVG(salary) FROM employees);
+
+Step 1 — Execute Subquery First
+SELECT AVG(salary) FROM employees;
+
+Step 2 — Outer Query Runs
+
+SELECT → FROM → WHERE
+1. FROM employees
+2. Subquery (AVG calculation)
+3. WHERE salary < avg
+4. SELECT columns
 ```
 
-#### Q-5
+#### Q-5 SQL execution flow - 2
 ```bash
+SELECT d.dept_name , COUNT(e.emp_name) AS emp_count
+FROM departments d
+LEFT JOIN employees e
+    ON d.dept_id = e.dept_id
+GROUP BY d.dept_name
+HAVING COUNT(e.emp_name) = 3
+ORDER BY emp_count ASC
+LIMIT 1;
+
+1. FROM + JOIN
+FROM departments d
+LEFT JOIN employees e
+ON d.dept_id = e.dept_id
+
+🥈 2. GROUP BY
+GROUP BY d.dept_name
+
+🥉 3. Aggregate Functions
+COUNT(e.emp_name)
+
+🏅 4. HAVING (Filter Groups)
+HAVING COUNT(e.emp_name) = 3
+
+🏁 5. SELECT
+SELECT d.dept_name, COUNT(e.emp_name) AS emp_count
+
+🔽 6. ORDER BY
+ORDER BY emp_count ASC
+
+🔟 7. LIMIT
+LIMIT 1
+
+1. FROM + JOIN
+2. GROUP BY
+3. Aggregation (COUNT)
+4. HAVING
+5. SELECT
+6. ORDER BY
+7. LIMIT
 ```
 
 #### Q-6
