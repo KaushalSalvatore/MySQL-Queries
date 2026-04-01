@@ -118,16 +118,158 @@ LIMIT 1
 7. LIMIT
 ```
 
-#### Q-6
+#### Q-6 where to use cte ,subqureiy , window function ? 
 ```bash
+1. CTE (Common Table Expression) – “Make complex logic readable”
+
+👉 Use CTE (WITH clause) when:
+
+You have multi-step transformations
+You want readability & modular logic
+You need to reuse the same intermediate result
+You’re doing recursive queries
+Breaking large queries into steps
+Debugging (you can run each CTE separately)
+
+2. Subquery – Filter or derive quick values
+Use subqueries when:
+
+You need a quick filter or lookup
+Logic is simple and used once
+Inside WHERE, FROM, or SELECT
+
+3. Window Function – “Do calculations without collapsing rows”
+Use window functions when:
+
+You need ranking, running totals, lag/lead
+Want aggregation but keep row-level detail
+
+✔ Best for:
+
+Top N per group
+Deduplication
+Time-based analysis
+Moving averages
 ```
 
-#### Q-7
+#### Q-7 row vs columnar storage and example  ?
 ```bash
+1. Row-Based Storage – “Store full rows together”
+id | name | age
+1  | A    | 25
+2  | B    | 30
+
+Row1 → (1, A, 25)
+Row2 → (2, B, 30)
+
+✅ When to use:
+OLTP systems (frequent inserts/updates)
+When you read entire rows
+
+🧠 Real examples:
+MySQL
+PostgreSQL
+SQL Server
+
+⚡ Pros:
+
+✔ Fast for insert/update
+✔ Good for transactional workloads
+✔ Efficient when accessing full rows
+
+❌ Cons:
+
+✖ Slow for analytics (scans unnecessary columns)
+✖ Poor compression
+
+🔹 2. Columnar Storage – “Store column-wise”
+id   → 1, 2
+name → A, B
+age  → 25, 30
+
+✅ When to use:
+OLAP / analytics
+Queries on few columns over large data
+
+🧠 Real examples:
+Apache Parquet
+ORC
+Amazon Redshift
+Snowflake
+
+⚡ Pros:
+
+✔ Reads only required columns → faster queries
+✔ High compression (similar data together)
+✔ Great for aggregation queries
+
+❌ Cons:
+
+✖ Slower writes/updates
+✖ Not ideal for transactional systems
+
+Scenario:
+
+Table = 1 billion rows, 20 columns
+
+👉 Query:
+SELECT salary FROM employees;
+
+Row store → scans all 20 columns ❌
+Column store → scans only 1 column ✅
+
+✔ Huge performance gain
 ```
 
-#### Q-8
+#### Q-8 What is a Surrogate Key ?
 ```bash
+A surrogate key is a system-generated unique identifier with no business meaning, used primarily in data warehouses 
+to ensure stability, improve join performance, and handle slowly changing dimensions.
+
+A surrogate key is an artificial (system-generated) unique identifier for a record.
+
+It has no business meaning
+Usually an integer or UUID
+Used as a primary key
+
+| customer_sk | customer_id | name |
+| ----------- | ----------- | ---- |
+| 1           | C101        | A    |
+| 2           | C102        | B    |
+
+customer_id → business key (natural key)
+customer_sk → surrogate key
+
+Why do we use Surrogate Keys?
+
+1. ✅ Handle Changing Data (SCD Type 2)
+✔ Same customer → multiple records
+✔ Surrogate key keeps them unique
+
+✔ Same customer → multiple records
+✔ Surrogate key keeps them unique
+
+| customer_sk | customer_id | city   |
+| ----------- | ----------- | ------ |
+| 1           | C101        | Delhi  |
+| 2           | C101        | Mumbai |
+
+2. ✅ Improve Join Performance
+JOIN fact_table f
+ON f.customer_sk = d.customer_sk
+
+🧠 How to Generate Surrogate Keys
+SQL :-
+
+IDENTITY(1,1)
+AUTO_INCREMENT
+SEQUENCE
+
+PySpark :-
+
+from pyspark.sql.functions import monotonically_increasing_id
+
+df = df.withColumn("customer_sk", monotonically_increasing_id())
 ```
 
 #### Q-9
