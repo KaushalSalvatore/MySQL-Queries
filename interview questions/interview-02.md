@@ -272,8 +272,22 @@ from pyspark.sql.functions import monotonically_increasing_id
 df = df.withColumn("customer_sk", monotonically_increasing_id())
 ```
 
-#### Q-9
+#### Q-9 delete the duplicate records by id ? 
 ```bash
+WITH cte AS (
+    SELECT *,
+           ROW_NUMBER() OVER (PARTITION BY col1, col2 ORDER BY id) AS rn
+    FROM your_table
+)
+DELETE FROM cte
+WHERE rn > 1;
+
+DELETE FROM your_table
+WHERE id NOT IN (
+    SELECT MIN(id)
+    FROM your_table
+    GROUP BY col1, col2
+);
 ```
 
 #### Q-10
