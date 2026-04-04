@@ -55,6 +55,19 @@ FROM (
     FROM user_activity
 ) t
 WHERE DATEDIFF(login_date, prev_login) > 1;
+
+-> If you want users who ALWAYS log consecutively 
+
+SELECT user_id
+FROM (
+    SELECT 
+        user_id,
+        login_date,
+        DATEDIFF(login_date, LAG(login_date) OVER (PARTITION BY user_id ORDER BY login_date)) AS diff
+    FROM user_activity
+) t
+GROUP BY user_id
+HAVING MAX(diff) = 1;
 ```
 
 #### Q-4 SQL execution flow - 1
@@ -290,8 +303,48 @@ WHERE id NOT IN (
 );
 ```
 
-#### Q-10
+#### Q-10 explain query output ? 
 ```bash
+TABLE A
+ID
+C1
+C2
+C3
+C4
+ 
+TABLE B
+ID - GENDER
+C1 - M
+C3 - M
+C4 - F
+
+1. query :-
+
+SELECT * 
+FROM A 
+LEFT JOIN B 
+ON A.ID = B.ID 
+AND B.GENDER = 'M';
+
+A.ID | B.ID | B.GENDER
+----------------------
+C1   | C1   | M
+C2   | NULL | NULL
+C3   | C3   | M
+C4   | NULL | NULL
+
+2. query :- 
+
+SELECT * 
+FROM A 
+LEFT JOIN B 
+ON A.ID = B.ID
+WHERE B.GENDER = 'M';
+
+A.ID | B.ID | B.GENDER
+----------------------
+C1   | C1   | M
+C3   | C3   | M
 ```
 
 #### Q-11

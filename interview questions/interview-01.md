@@ -44,12 +44,12 @@ Example 2:-
 CREATE TABLE products (
   name VARCHAR(5)
 );
-INSERT INTO products VALUES ('Laptop');\
+INSERT INTO products VALUES ('Laptop');
 
 | Mode        | Result                        |
 | ----------- | ----------------------------- |
 | Normal      | Inserts `"Lapto"` (truncated) |
-| Strict mode | ❌ Error: Data too long        |
+| Strict mode | ❌ Error: Data too long      |
 
 STRICT_ALL_TABLES helps to:
 Maintain data integrity
