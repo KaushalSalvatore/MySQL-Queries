@@ -347,8 +347,12 @@ C1   | C1   | M
 C3   | C3   | M
 ```
 
-#### Q-11
+#### Q-11 Explain how different types of indexes (e.g., clustered, non-clustered) impact query performance in large datasets ? 
 ```bash
+Clustered index stores actual data in sorted order → best for range queries
+Non-clustered index stores pointers → best for fast lookups
+Indexes reduce read time but increase write cost
+Proper indexing is critical for large datasets to avoid full scans
 ```
 
 #### Q-12

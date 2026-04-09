@@ -376,10 +376,46 @@ Disk persistence
 MySQL (InnoDB) ensures committed data survives crashes
 ```
 
-#### Q-20 Explain how different types of indexes (e.g., clustered, non-clustered) impact query performance in large datasets ? 
+#### Q-20 what is CAP Theorem ?   
 ```bash
-Clustered index stores actual data in sorted order → best for range queries
-Non-clustered index stores pointers → best for fast lookups
-Indexes reduce read time but increase write cost
-Proper indexing is critical for large datasets to avoid full scans
+Consistency (C)
+Every read gets the most recent write
+All nodes see the same data at the same time
+
+Availability (A)
+Every request gets a response (success/failure)
+System remains responsive
+
+Partition Tolerance (P)
+System continues to work even if network failures occur between nodes
+
+In real-world distributed systems, Partition Tolerance is mandatory, so you must choose between:
+
+CP (Consistency + Partition Tolerance) → may sacrifice availability
+AP (Availability + Partition Tolerance) → may sacrifice consistency
+
+CP (Consistency + Partition Tolerance)
+Examples:
+HBase
+MongoDB (in strong consistency mode)
+Google Spanner
+
+✔️ Use case: Banking, financial systems (data must be accurate)
+
+AP (Availability + Partition Tolerance)
+Prioritizes system uptime over immediate consistency
+Examples:
+Cassandra
+DynamoDB
+CouchDB
+
+✔️ Use case: Social media, analytics, high-traffic apps
+
+CA (Consistency + Availability)
+Works only when there is no partition (not truly distributed)
+Examples:
+MySQL (single-node setup)
+PostgreSQL
+
+✔️ Use case: Traditional applications (non-distributed)
 ```
