@@ -355,9 +355,53 @@ Indexes reduce read time but increase write cost
 Proper indexing is critical for large datasets to avoid full scans
 ```
 
-#### Q-12
+#### Q-12 count the total ids in tables according to joins ? 
 ```bash
+table A    table B    table C 
+
+1             1          1
+1             1          1
+0             0          1
+1             1
+0
+
+
+A → 1, 1, 0, 1, 0 → (3 ones, 2 zeros)
+B → 1, 1, 0, 1 → (3 ones, 1 zero)
+C → 1, 1, 1 → (3 ones, 0 zeros)
+
+INNER JOIN :-
+
+For value 1 → 3 (A) × 3 (B) = 9
+For value 0 → 2 (A) × 1 (B) = 2
+
+👉 Total = 9 + 2 = 11 rows
+
+A ⨝ B ⨝ C
+For value 1 → 3 × 3 × 3 = 27
+For value 0 → no match in C → 0
+
+👉 Total = 27 rows
+
+LEFT JOIN :-
+
+A ⟕ B
+
+For value 1 → 3 (A) × 3 (B) = 9
+For value 0 → 2 (A) × 1 (B) = 2
+
+👉 Total = 9 + 2 = 11 rows
+
+A ⟕ B ⟕ C
+
+For value 1 → 3 × 3 × 3 = 27
+For value 0:
+A × B = 2 × 1 = 2
+No match in C → still kept (NULLs)
+
+👉 Total = 27 + 2 = 29 rows
 ```
+
 
 #### Q-13
 ```bash
