@@ -403,8 +403,37 @@ No match in C → still kept (NULLs)
 ```
 
 
-#### Q-13
+#### Q-13 Write a query for this table output 
 ```bash
+Acc_Num   Date        Amount 
+123      01-02-2021    1000 
+123      10-02-2021    500 
+123      11-02-2021    2000 
+800      05-04-2021    5000 
+800      07-04-2021    1500
+
+OutPut 
+
+Num       Date       Amount     Running Balance 
+123     01-02-2021    1000         1000 
+123     10-02-2021     500         1500 
+123     11-02-2021    2000         3500 
+800     05-04-2021    5000         5000 
+800     07-04-2021    1500         6500
+
+Query :-
+
+SELECT 
+    Acc_Num AS Num,
+    Date,
+    Amount,
+    SUM(Amount) OVER (
+        PARTITION BY Acc_Num 
+        ORDER BY Date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS "Running Balance"
+FROM your_table
+ORDER BY Acc_Num, Date;
 ```
 
 #### Q-14
