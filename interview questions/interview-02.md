@@ -436,8 +436,28 @@ FROM your_table
 ORDER BY Acc_Num, Date;
 ```
 
-#### Q-14
+#### Q-14 Question 1 :- FIRST_VALUE and LAST_VALUE in sql ?
 ```bash
+FIRST_VALUE() returns the first value in a window partition, while LAST_VALUE() returns the last value, but for accurate results LAST_VALUE() usually requires UNBOUNDED FOLLOWING to evaluate the complete partition.
+
+Why do we use UNBOUNDED FOLLOWING with LAST_VALUE()?
+
+Because by default LAST_VALUE() only considers rows up to the current row. To get the actual last value of the full partition, we define the frame using ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING.
+
+SELECT 
+    CustomerID,
+    OrderDate,
+    Amount,
+    FIRST_VALUE(Amount) OVER (
+        PARTITION BY CustomerID 
+        ORDER BY OrderDate
+    ) AS FirstAmt,
+    LAST_VALUE(Amount) OVER (
+        PARTITION BY CustomerID 
+        ORDER BY OrderDate 
+        ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING
+    ) AS LastAmt
+FROM Orders;
 ```
 
 #### Q-15
