@@ -460,11 +460,36 @@ SELECT
 FROM Orders;
 ```
 
-#### Q-15
+#### Q-15 UNION vs UNION ALL in SQL ? 
 ```bash
+UNION ALL is faster than UNION
+
+1. UNION
+
+Combine Results
+     ↓
+Sort/Hash
+     ↓
+Remove Duplicates
+     ↓
+Return Result
+
+2. UNION ALL
+
+Combine Results
+     ↓
+Return Result
+
+SELECT CustomerID, Name
+FROM salesforce_customers
+
+UNION (UNION ALL)
+
+SELECT CustomerID, Name
+FROM sap_customers;
 ```
 
-#### Q-16
+#### Q-16 
 ```bash
 ```
 
