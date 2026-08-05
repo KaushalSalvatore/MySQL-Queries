@@ -1,10 +1,37 @@
+
+-- Aggregate Window FunctionsSUM() ,AVG(),COUNT(),MIN(),MAX()
+
 -- 1. Calculate running total of salary by join date.
+SELECT emp_name, salary ,SUM(salary) OVER(ORDER by joining_date) AS total_salary
+FROM employees
+ORDER BY joining_date;
 
--- 2. Calculate cumulative sales per month.
+-- 2. Calculate running total departement wise without GROUP BY.
+SELECT
+    emp_name,
+    dept.dept_name,
+    salary,
+    SUM(salary) OVER (
+        PARTITION BY emp.dept_id
+        ORDER BY salary DESC
+    ) AS running_total
+FROM employees emp
+JOIN departments dept
+    ON emp.dept_id = dept.dept_id;
 
--- 3. Find department-wise total salary without GROUP BY.
 
--- 4. Calculate moving average of last 3 salaries.
+-- 3. Calculate the cumulative project budget by project creation order.
+SELECT prj.project_name, SUM(emp.salary) OVER(PARTITION BY prj.project_id) as budget,
+SUM(emp.salary) OVER(PARTITION BY prj.project_id) * 1.30 AS project_budget
+FROM employees emp
+JOIN employees_project eprj 
+ON eprj.emp_id = emp.emp_id
+JOIN projects prj
+ON prj.project_id = eprj.project_id;
+
+-- 4. Calculate the moving average of the last 3 employee salaries based on joining date.
+
+
 
 -- 5. Count number of employees hired till date.
 
