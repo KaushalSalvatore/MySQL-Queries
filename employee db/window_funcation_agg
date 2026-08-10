@@ -32,7 +32,6 @@ ON prj.project_id = eprj.project_id;
 -- 4. Calculate the moving average of the last 3 employee salaries based on joining date.
 
 
-
 -- 5. Count number of employees hired till date.
 
 -- 6. Find difference between current and previous row salary.
