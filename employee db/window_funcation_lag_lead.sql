@@ -1,0 +1,25 @@
+-- Compare current salary with previous employee salary.
+-- Find salary hike compared to previous month.
+-- Detect salary drop or decrease.
+-- Find gap between consecutive transactions.
+-- Identify customers who skipped months
+-- Compare current record with next record.
+-- Find time difference between events.
+-- Detect repeated values in consecutive rows.
+-- Find trend (increase/decrease) in sales.
+-- Calculate day-over-day growth percentage.
+-- Fetch first and last salary in each department.
+-- Find earliest joined employee per department.
+-- Find latest transaction per customer.
+-- Remove duplicate rows using window functions.
+-- Identify duplicate records based on multiple columns.
+-- Find employees who joined on same day.
+-- Detect islands and gaps problem.
+-- Find continuous login days.
+-- Find customers with consecutive purchases.
+-- Rank rows based on multiple columns.
+-- FRAME CLAUSE (INTERVIEWER FAVORITE)
+-- Calculate sliding window sum (3 previous rows).
+-- Calculate moving average including current + next rows.
+-- Why does LAST_VALUE() give unexpected output?
+-- How to fix LAST_VALUE() using frame clause?
