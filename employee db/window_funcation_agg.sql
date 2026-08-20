@@ -74,7 +74,6 @@ select emp_id, AVG(salary) OVER(ORDER BY joining_date RANGE BETWEEN INTERVAL '6 
 FROM employees 
 ORDER BY joining_date;
 
-
 -- 9. Show percentage contribution of each employee salary.
 
 

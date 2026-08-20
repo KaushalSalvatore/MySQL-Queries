@@ -489,8 +489,55 @@ SELECT CustomerID, Name
 FROM sap_customers;
 ```
 
-#### Q-16 
+#### Q-16 difference between having , where , QUALIFY ? 
 ```bash
+WHERE → filters rows before grouping
+HAVING → filters groups after GROUP BY
+QUALIFY → filters rows after window functions
+
+You generally use HAVING when your condition involves an aggregate such as:
+SUM()
+COUNT()
+AVG()
+MAX()
+MIN()
+
+QUALIFY — Filter window-function results
+This is especially important in Snowflake.
+Suppose you want the employee with the highest salary in each department.
+
+Without QUALIFY, you'd need a subquery:-
+
+SELECT *
+FROM (
+    SELECT
+        employee_id,
+        employee_name,
+        department_id,
+        salary,
+        ROW_NUMBER() OVER (
+            PARTITION BY department_id
+            ORDER BY salary DESC
+        ) AS rn
+    FROM employees
+)
+WHERE rn = 1;
+
+With QUALIFY, Snowflake makes this much simpler:-
+
+SELECT
+    employee_id,
+    employee_name,
+    department_id,
+    salary,
+    ROW_NUMBER() OVER (
+        PARTITION BY department_id
+        ORDER BY salary DESC
+    ) AS rn
+FROM employees
+QUALIFY rn = 1;
+
+because the window function hasn't been evaluated at the WHERE stage.That's exactly where QUALIFY is useful.
 ```
 
 #### Q-17
