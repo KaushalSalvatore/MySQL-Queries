@@ -75,6 +75,11 @@ FROM employees
 ORDER BY joining_date;
 
 -- 9. Show percentage contribution of each employee salary.
-
+SELECT emp_id , emp_name , dept_id , ROUND(salary % 100/ SUM(salary) OVER(),2) as  salary_per
+FROM employees;
 
 -- 10. Find running sum reset per department.
+select dept_name , 
+SUM(salary) OVER(PARTITION by dept_id ORDER BY dept_id ROW BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS sum_of_department_salary
+FROM employees
+ORDER BY dept_name , joining_date;

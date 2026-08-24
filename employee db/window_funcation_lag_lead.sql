@@ -1,4 +1,9 @@
 -- Compare current salary with previous employee salary.
+
+
+
+
+
 -- Find salary hike compared to previous month.
 -- Detect salary drop or decrease.
 -- Find gap between consecutive transactions.
