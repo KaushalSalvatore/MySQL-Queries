@@ -540,18 +540,69 @@ QUALIFY rn = 1;
 because the window function hasn't been evaluated at the WHERE stage.That's exactly where QUALIFY is useful.
 ```
 
-#### Q-17
+#### Q-17 Find customers who have bought ALL products present in the product table. 
 ```bash
+customer table 
+id , name , product_id
+
+product table 
+product_id , product_name
+
+select c.name
+from customer c
+inner join product p 
+on c.product_id = p.product_id
+group by c.id , c.name
+where count(distict c.product_id) = (select count(distict product_id) from product);
 ```
 
-#### Q-18
+#### Q-18 find the temperature higher then the yerterday temperature.
 ```bash
+Select id , date , temp
+from (select id , date , temp, lag(temp) over(order by date ) as previous_date from weather) t 
+where temp > previous_date;
+
+Snowflake we can use Qualify 
+
+Select id , date , temp
+from weather
+qualify temp > lag(temp) over(order by date); 
 ```
 
-#### Q-19
+#### Q-19 find the actor who work with producer more then 3 time .
 ```bash
+actor_id , producer_id , timestamp
+1               1           1
+1               1           2
+1               1           3
+1               2           4
+1               2           5
+3               2           6
+3               1           7
+
+Select actor_id , producer_id
+from actoreDirectore
+group by actor_id, producer_id
+having count(*) >= 3 
 ```
 
-#### Q-20
+#### Q-20 write a query to find all the weight that appear at lest three time consecutively.
 ```bash
+Worker table 
+id             weight 
+1               60
+2               60
+3               60
+4               70
+5               90
+
+with cte as (
+    select id , weight 
+    LAG(weight) over (order by id) as pre_weight 
+    LAG(weight , 2) over (order by id) as pre_2_weight
+    from worker
+)
+select distict weight 
+from cte 
+where weight = pre_weight and pre_weight = pre_2_weight;
 ```
