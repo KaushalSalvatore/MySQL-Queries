@@ -22,8 +22,12 @@ group by p.maruti
 order by total_amt decs
 ```
 
-#### Q-2 
+#### Q-2 find First Order Date and Last Order Date for Every Customer ?
 ```bash
+Select Distinct customer_id, Min(order_date) OVER(partitionBy("customer_id")) AS startig_date, 
+MAX(order_date) over(partitionBY("customer_id")) AS ending_date
+from customer_record
+order by customer_id;
 ```
 
 #### Q-3

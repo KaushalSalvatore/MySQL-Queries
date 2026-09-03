@@ -1,11 +1,10 @@
----------------------------------------------------------------------------
 -- Case Study 1: Customer Revenue Analysis
 -- Scenario:
 -- A company wants to identify its most valuable customers.
-
 -- Tasks:
 
 -- Calculate total spending per customer.
+
 
 -- Rank customers based on total spending.
 
