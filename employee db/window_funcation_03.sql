@@ -106,6 +106,20 @@ from growth_cal
 ORDER BY shop_id;
 
 --9. Fetch first and last salary in each department.
-
+select  emp_name , 
+        emp_id , 
+        FIRST_VALUE(salary) 
+        Over(partition BY dept ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) 
+        as first_salary, 
+        LAST_VALUE(salary) 
+        Over(partition BY dept ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) 
+        as last_salary
+from employee;
 
 --10. Find earliest joined employee per department.
+select emp_name . emp_dept , 
+FIRST_VALUE(emp_name) OVER(PARTITION BY dept ORDER BY month BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+as first_joinning
+from employee;
+
+
