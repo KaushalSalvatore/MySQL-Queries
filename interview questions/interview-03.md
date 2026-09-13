@@ -90,8 +90,26 @@ FROM session_start
 ORDER BY user_id, event_time;
 ```
 
-#### Q-5
+#### Q-5 Winfow function CURRENT ROW , PRECEDING , UNBOUNDED , LEAD , LAG , INTERVAL '6 days' ? 
 ```bash
+1. ROWS BETWEEN 2 PRECEDING AND CURRENT ROW :- Take the current row and the previous 2 physical rows.
+
+2. ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW :- Start from the very first row in the window and 
+continue up to the current row.
+
+3. RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW :- Include all rows whose date falls within the 
+previous 6 calendar days, up to the current date.
+
+4. LAG() :- fetches a value from a previous row.
+
+5. LEAD() :- fetches a value from a following row.
+
+PRECEDING  → rows before current row
+CURRENT ROW → current row
+FOLLOWING  → rows after current row
+
+UNBOUNDED PRECEDING → start from first row
+UNBOUNDED FOLLOWING → go until last row
 ```
 
 #### Q-6  
