@@ -86,7 +86,7 @@ ORDER by event_id;
 
 --7. Detect repeated orer amount values in consecutive rows.
 with orderValue AS (
-Select order_id , order_amount , order_time LAG(order_amount) Over(PARTITION BY order_id ORDER BY order_time)
+Select order_id , order_amount , order_time, LAG(order_amount) Over(PARTITION BY order_id ORDER BY order_time)
 AS pre_order
 from order_table
 )

@@ -112,8 +112,15 @@ UNBOUNDED PRECEDING → start from first row
 UNBOUNDED FOLLOWING → go until last row
 ```
 
-#### Q-6  
+#### Q-6   Write a Python function to filter out customers who have made more than 5 purchases in the last 6 months ? 
 ```bash
+Select 
+From customerName , Count(*) As purchases_count 
+from purchases
+WHERE purchase_date >= CURRENT_DATE - INTERVAL '6 months'
+Group by customerID 
+HAVING COUNT(*) > 5 
+ORDER BY purchases_count desc ;
 ```
 
 #### Q-7 

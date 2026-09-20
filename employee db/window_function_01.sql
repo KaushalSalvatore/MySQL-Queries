@@ -1,7 +1,7 @@
 -- RANKING & ORDERING (Very High Frequency)
 -- RANK() {1, 2, 2, 4} 
---  DENSE_RANK() {1, 2, 2, 3} 
--- ROW_NUMBER() {1, 2,3, 4}
+--  DENSE_RANK() {1, 2, 3} 
+-- ROW_NUMBER() {1, 2 2,,3, 4}
 
 --1.  Find highest salary in each department.
 
@@ -15,7 +15,7 @@ WHERE rn = 1;
 SELECT emp_name , salary , dept_id
 FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY salary DESC) rn
     FROM employees)
-WHERE rn = 1;
+WHERE rn = 2;
 
 --3. Find top 3 salaries per department.
 SELECT emp_name , salary , dept_id 
