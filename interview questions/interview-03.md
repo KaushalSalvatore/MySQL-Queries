@@ -123,12 +123,39 @@ HAVING COUNT(*) > 5
 ORDER BY purchases_count desc ;
 ```
 
-#### Q-7 
+#### Q-7 write a query to identify users who placed more than 20 critical orders every week for at least 1 month ?  
 ```bash
+WITH weekly AS (
+    SELECT
+        user_id,
+        username,
+        DATE_TRUNC('week', order_date) AS week_start,
+        COUNT(*) AS weekly_count
+    FROM userRecord
+    WHERE order_type = 'CRITICAL'
+    GROUP BY user_id, username, DATE_TRUNC('week', order_date)
+)
+SELECT
+    user_id,
+    username
+FROM weekly
+WHERE weekly_count > 20
+GROUP BY user_id, username
+HAVING COUNT(*) >= 4;
 ```
 
-#### Q-8
+#### Q-8 Write a SQL query to identify accounts with transactions exceeding a specified threshold within a 24-hour period ? 
 ```bash
+SELECT DISTINCT
+    account_id
+FROM transactions
+QUALIFY
+    SUM(amount) OVER (
+        PARTITION BY account_id
+        ORDER BY transaction_time
+        RANGE BETWEEN INTERVAL '24 HOURS' PRECEDING
+                  AND CURRENT ROW
+    ) > 10000;
 ```
 
 #### Q-9

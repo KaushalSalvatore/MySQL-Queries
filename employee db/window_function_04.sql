@@ -46,5 +46,6 @@ WHERE date_diff > 1 ;
 --8. Rank rows based on multiple columns.
 
 
+
 --9. Calculate sliding window sum (3 previous rows).
 
