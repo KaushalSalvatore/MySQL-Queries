@@ -158,8 +158,23 @@ QUALIFY
     ) > 10000;
 ```
 
-#### Q-9
+#### Q-9 need to caluclate transaction count under the 10 sec ? 
 ```bash
+transaction_id customer amount   transaction_date 
+19153           ram      65.90   07/10/2022 10:00:00
+19153           ram      65.90   07/10/2022 10:00:01
+
+SELECT
+    transaction_id,
+    customer,
+    transaction_date,
+    COUNT(*) OVER (
+        PARTITION BY customer
+        ORDER BY transaction_date
+        RANGE BETWEEN INTERVAL '10 SECONDS' PRECEDING
+                  AND CURRENT ROW
+    ) AS transaction_count_10_sec
+FROM transactions;
 ```
 
 #### Q-10
