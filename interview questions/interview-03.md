@@ -177,8 +177,27 @@ SELECT
 FROM transactions;
 ```
 
-#### Q-10
+#### Q-10 Write a SQL query to identify accounts with transactions exceeding a specified threshold within a 24-hour period ? 
 ```bash
+transactions
+------------
+account_number
+transaction_date
+transaction_amount
+transaction_limit
+
+SELECT
+    account_number,
+    transaction_date,
+    transaction_amount,
+    SUM(transaction_amount) OVER (
+        PARTITION BY account_number
+        ORDER BY transaction_date
+        RANGE BETWEEN INTERVAL '24 HOURS' PRECEDING
+                  AND CURRENT ROW
+    ) AS amount_24_hours
+FROM transactions
+QUALIFY amount_24_hours > transaction_limit;
 ```
 
 
